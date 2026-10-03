@@ -1,1 +1,3 @@
 homeassistant/config
+homeassistant/.env
+homeassistant/zigbee2mqtt-data

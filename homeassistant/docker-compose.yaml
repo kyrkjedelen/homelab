@@ -1,0 +1,33 @@
+services:
+  homeassistant:
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    container_name: homeassistant
+    restart: unless-stopped
+    volumes:
+      - ./config:/config:Z
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    devices:
+      - ${HA_CONNECT_ZBT2_DEVICE}:/dev/ttyACM0
+    privileged: true
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    env_file: .env
+    environment:
+      - TZ=Europe/Oslo
+  zigbee2mqtt:
+    image: ghcr.io/koenkk/zigbee2mqtt
+    container_name: zigbee2mqtt
+    restart: unless-stopped
+    devices:
+      - ${HA_CONNECT_ZBT2_DEVICE}:/dev/ttyACM0
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./zigbee2mqtt-data:/app/data:Z
+      - /run/udev:/run/udev:ro
+    env_file: .env
+    environment:
+      - TZ=Europe/Oslo

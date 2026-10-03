@@ -1,0 +1,3 @@
+OT_INFRA_IF=wlp3s0
+INFRA_IF_NAME=wlp3s0
+HA_CONNECT_ZBT2_DEVICE=/dev/serial/by-id/usb-Nabu_Casa_ZBT-2_14C19FC4DD50-if00
