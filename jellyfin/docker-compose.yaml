@@ -1,0 +1,16 @@
+services:
+  jellyfin:
+    image: docker.io/jellyfin/jellyfin:latest
+    container_name: jellyfin
+    labels:
+      io.containers.autoupdate: registry
+    ports:
+      - "8096:8096/tcp"
+      - "7359:7359/udp"
+    userns_mode: "keep-id"
+    env_file: .env
+    volumes:
+      - ./cache:/cache:Z
+      - ./config:/config:Z
+      - ${MOVIE_FOLDER}:/movies:ro,z
+      - ${SHOW_FOLDER}:/shows:ro,z
